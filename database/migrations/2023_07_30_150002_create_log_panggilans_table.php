@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('log_panggilans', function (Blueprint $table) {
             $table->id();
-            $table->string('panggilan');
+            $table->string('kode');
+            $table->string('menuju');
             $table->timestamps();
         });
     }

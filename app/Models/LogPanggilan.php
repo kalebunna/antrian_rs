@@ -9,6 +9,7 @@ class LogPanggilan extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "panggilan"
+        "kode",
+        "menuju"
     ];
 }

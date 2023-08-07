@@ -30,7 +30,7 @@ Route::get('/', function () {
 Route::resource('identitas', IdentitasController::class)->except('show', 'update', 'store', 'destroy', 'create', 'edit');
 Route::post('identitas/{identitas}', [IdentitasController::class, 'update'])->name('identitas.update');
 Route::get('antrian', [AntrianController::class, 'index'])->name('antrian.index');
-Route::get('antrian/{jenis}', [AntrianController::class, 'create'])->name('antrian.create');
+Route::get('antrian/{jenis}/{token}/{detail?}', [AntrianController::class, 'create'])->name('antrian.create');
 Route::get('resepsionis',  [ResepsionisController::class, 'index'])->name('resepsionis.index');
 Route::post('resepsionis', [ResepsionisController::class, 'store'])->name('resepsionis.store');
 Route::delete('resepsionis/{resepsionis}', [ResepsionisController::class, 'destroy'])->name('resepsionis.destroy');
@@ -40,9 +40,13 @@ Route::resource('resepsionis', ResepsionisController::class)->parameters([
 
 route::get('pendaftaran', [PemanggilanController::class, 'panggilPendaftaran'])->name('pendaftaran');
 route::get('panggilpoli', [PemanggilanController::class, 'panggilPoli'])->name('panggilPoli');
-route::get('getAntrian', [AntrianController::class, 'getAtrianForCalling'])->name('getAntrian');
-route::get('getLasAntrian/{id}', [AntrianController::class, 'getLastAntrian'])->name('getLastAntrian');
-Route::get('antrian/panggilulang/{antrian}', [AntrianController::class, 'panggil_ulang'])->name('antrian.panggil_ulang');
+route::get('getAntrian/{prioritas}', [AntrianController::class, 'getAtrianForCalling'])->name('getAntrian');
+route::get('getAntrian', [AntrianController::class, 'getAllData'])->name('getAntrian.all');
+route::get('getLasAntrian/{id}/{prioritas}', [AntrianController::class, 'getLastAntrian'])->name('getLastAntrian');
+route::get('getAntrianById/{antrian}', [AntrianController::class, 'getAntrianByid'])->name('getAntrianByid');
+
+// Route::get('antrian/panggilulang/{data}', [AntrianController::class, 'panggil_ulang'])->name('antrian.panggil_ulang');
+Route::get('antrian2/panggilulang/{data}', [AntrianController::class, 'panggil_ulang'])->name('antrian2.panggil_ulang');
 Route::get('arahkan/panggilulang/{antrian}', [ArahkanController::class, 'panggil_ulang'])->name('arahkan.panggil_ulang');
 
 route::get('getArahkan/{id}', [ArahkanController::class, 'getAtrianForCalling'])->name('getArahkan');

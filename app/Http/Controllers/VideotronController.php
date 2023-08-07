@@ -21,7 +21,9 @@ class VideotronController extends Controller
 
     function getAntrianActive($id)
     {
-        $data = antrian_resepsionis_status::with('antrian')->where('status', true)->where('resepsionis_id', $id)->first();
+        $data = antrian_resepsionis_status::with("antrian")->where('status', true)->where('resepsionis_id', $id)->whereHas('antrian', function ($query) {
+            $query->whereDate('tanggal', Carbon::today());
+        })->first();
         return response()->json(["status" => "success", "data" => $data], 200);
     }
 

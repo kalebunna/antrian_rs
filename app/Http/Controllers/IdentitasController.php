@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\identitas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use ParagonIE\Sodium\File;
 
 class IdentitasController extends Controller
 {
@@ -63,19 +64,29 @@ class IdentitasController extends Controller
                 return redirect()->back()->with('stat', 'Identitas Berhasil di Perbarui');
                 break;
             case 'logo':
-                $name = Carbon::now() . rand(0, 9999);
-                $request->file('logo')->storeAs('public/images', $name);
+                // $fileModel = new File;
+                // $name = Carbon::now() . rand(0, 9999) . $request->file('logo')->getClientOriginalName();
+                // $filePath = $request->file('logo')->storeAs('images', $name, 'public');
+                $filenameWithExt = $request->file('logo')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('logo')->getClientOriginalExtension();
+                $filenameSimpan = $filename . ' _ ' . time()  . '.' . $extension;
+                $path = $request->file('logo')->storeAs('public/logo', $filenameSimpan);
+                // dd($path);
                 $identitas->update([
-                    "logo" => $name
+                    "logo" => $filenameSimpan
                 ]);
-
-                return redirect()->back()->with('stat', 'Identitas Berhasil di Perbarui');
+                // dd($filePath);
+                return redirect()->back()->with(' stat ', ' Identitas Berhasil di Pe  rba rui');
                 break;
-            case 'video':
-                $name = Carbon::now() . rand(0, 9999) . $request->file('video')->getClientOriginalName();
-                $request->file('video')->storeAs('public/video', $name);
+            case   'video':
+                $filenameWithExt = $request->file('video')->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $request->file('video')->getClientOriginalExtension();
+                $filenameSimpan = $filename . ' _ ' . time()  . '.' . $extension;
+                $path = $request->file('video')->storeAs('public/video', $filenameSimpan);
                 $identitas->update([
-                    "video" => $name
+                    "video" => $filenameSimpan
                 ]);
 
                 return redirect()->back()->with('stat', 'Identitas Berhasil di Perbarui');

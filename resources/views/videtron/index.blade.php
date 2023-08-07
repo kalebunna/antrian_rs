@@ -14,7 +14,8 @@
             <table class="w-100">
                 <tr>
                     <td width="10">
-                        <img src="{{ asset('images/' . showIdentitas()->logo) }}" width="50" alt="logo icon">
+                        <img src="{{ Storage::url('public/logo/' . showIdentitas()->logo) }}" width="50"
+                            alt="logo icon">
                     </td>
                     <td class="align-middle">
                         <h3 class="gilroy-b text-white">
@@ -41,8 +42,8 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body bg-gradient-blues">
-                        <video autoplay muted width="100%" loop height="300">
-                            <source src="{{ asset('video/' . showIdentitas()->video) }}" type="video/mp4">
+                        <video autoplay width="100%" loop height="300" id="video">
+                            <source src="{{ Storage::url('public/video/' . showIdentitas()->video) }}" type="video/mp4">
                         </video>
                     </div>
                 </div>
@@ -123,6 +124,10 @@
     @include('layouts.foot')
 </body>
 <script>
+    $(() => {
+        $("#video").get(0).volume = 0.2;
+    })
+
     function update_resepsionis() {
         $('#data-resepsionis h1').each(function() {
             let id = $(this).attr('id')
@@ -158,7 +163,7 @@
     setInterval(() => {
         update_poli();
         update_resepsionis();
-    }, 1000);
+    }, 6000);
 </script>
 
 </html>

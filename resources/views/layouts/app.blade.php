@@ -53,9 +53,10 @@
         })
     </script>
     <script>
-        function inputToLog(text) {
+        function inputToLog(no, menuju) {
             let data = {
-                "panggilan": text
+                "kode": no,
+                "menuju": menuju
             };
             $.post("{{ route('logPanggilan.store') }}", data,
                 function(data) {

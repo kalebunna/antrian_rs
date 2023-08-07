@@ -26,6 +26,11 @@
                             </div>
                             <div class="col-12">
                                 <label for="" class="fw-bold mb-1"><span class="text-danger">*
+                                    </span>Suara</label>
+                                <input type="text" class="form-control" required name="suara" id="suara">
+                            </div>
+                            <div class="col-12">
+                                <label for="" class="fw-bold mb-1"><span class="text-danger">*
                                     </span>Status</label>
                                 <select name="status" id="status" required class="form-control">
                                     <option value="1">Aktif</option>

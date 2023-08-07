@@ -12,6 +12,7 @@ class resepsionis extends Model
     protected $fillable = [
         "nama",
         "kode",
-        "status"
+        "status",
+        "suara"
     ];
 }

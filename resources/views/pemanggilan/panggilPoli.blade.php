@@ -13,7 +13,8 @@
                     <label for="resepsionis">Pilih Loket</label>
                     <select name="poli" id="poli" class="form-control" onchange="updateData()">
                         @foreach ($polis as $item)
-                            <option value="{{ $item->id }}" data-nama="{{ $item->nama }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" data-suara="{{ $item->suara }}">{{ $item->nama }}
+                            </option>
                         @endforeach
                     </select>
                     <h6 class="mt-2 text-center">Nomor Antrian :</h6>
@@ -114,8 +115,7 @@
                         $("#nomorAntrian").html(data.no_antrian);
                         $("#panggilanKe").html(data.status);
                         $("#btnPanggilUlang").removeAttr('disabled');
-                        inputToLog('nomor Antrian ' + convertUrutan(data.no_antrian) + " Menuju Ke " + $("#poli").find(
-                            ':selected').attr('data-nama'));
+                        inputToLog(data.no_antrian, $("#poli").find(':selected').attr('data-suara'));
                         idarahkan = data.id;
 
                     }
@@ -134,8 +134,7 @@
                     if ($("#panggilanKe").html() == "3") {
                         $("#btnPanggilUlang").attr('disabled', 'disabled');
                     }
-                    inputToLog('nomor Antrian ' + convertUrutan(data.no_antrian) + " Menuju Ke " +
-                        $("#poli").find(':selected').attr('data-nama'));
+                    inputToLog(data.no_antrian, $("#poli").find(':selected').attr('data-suara'));
                 },
                 "json"
             );

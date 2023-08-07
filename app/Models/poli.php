@@ -13,6 +13,7 @@ class poli extends Model
         "kode",
         "nama",
         "kode_antrian",
-        "status"
+        "status",
+        "suara"
     ];
 }

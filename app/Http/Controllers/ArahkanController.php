@@ -34,7 +34,7 @@ class ArahkanController extends Controller
         Arahkan::create([
             "antrian_id" => $id_antrian,
             "poli_id" => $id_poli,
-            "no_antrian" => $this->generateNumber($kode_antri->kode_antrian, $no_antri += 1),
+            "no_antrian" => $kode_antri->kode_antrian . " " . $no_antri += 1,
             "status" => 0,
             "active" => false,
             "tanggal" => Carbon::now()
@@ -43,23 +43,13 @@ class ArahkanController extends Controller
         return redirect()->back();
     }
 
-    function generateNumber($prefix, $number)
-    {
-        $numDigits = strlen((string)$number);
-        $zeroPadding = 3 - $numDigits;
 
-        if ($zeroPadding > 0) {
-            $zeros = str_repeat('0', $zeroPadding);
-            return $prefix . $zeros . $number;
-        }
-        return $prefix . $number;
-    }
 
     public function getAtrianForCalling(Request $request, $id_poli)
     {
         // dd($id_poli);
         if ($request->ajax()) {
-            $data = Arahkan::where('status', '0')->where('poli_id', $id_poli)->with('antrian')->orderBy('no_antrian', 'asc')->get();
+            $data = Arahkan::where('status', '0')->whereDate('tanggal', Carbon::today())->where('poli_id', $id_poli)->with('antrian')->orderBy('no_antrian', 'asc')->get();
             return Datatables::of($data)
                 ->addColumn('kategori', function ($row) {
                     if ($row->antrian->prioritas == 1) {
@@ -79,7 +69,7 @@ class ArahkanController extends Controller
     public function getLastArahkan($id)
     {
 
-        $data = Arahkan::where('status', '0')->where('poli_id', $id)->orderBy('no_antrian', 'asc')->first();
+        $data = Arahkan::where('status', '0')->whereDate('tanggal', Carbon::today())->where('poli_id', $id)->orderBy('no_antrian', 'asc')->first();
         if ($data != null) {
             Arahkan::where('active', true)->where('poli_id', $id)->whereDate('tanggal', Carbon::today())->update([
                 "active" => false

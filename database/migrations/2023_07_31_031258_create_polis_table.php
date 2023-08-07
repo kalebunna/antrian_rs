@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('kode_antrian');
             $table->string('nama');
             $table->boolean('status');
+            $table->string('suara');
             $table->timestamps();
         });
     }

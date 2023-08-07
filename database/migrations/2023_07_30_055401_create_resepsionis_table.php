@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('kode');
             $table->string('nama');
             $table->boolean('status');
+            $table->string('suara');
             $table->timestamps();
         });
     }
